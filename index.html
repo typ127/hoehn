@@ -93,6 +93,17 @@
   .phasen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:2rem;margin-top:2rem}
   .phasen-grid h3{font-size:1.2rem;margin-bottom:.4rem;color:var(--gold-soft)}
   .phasen-grid p{font-size:.95rem}
+  .slider{overflow:hidden}
+  .slider-track{display:flex;transition:transform .8s ease}
+  .slide{flex:0 0 100%}
+  .slide .phasen-grid{margin-top:1.2rem}
+  .slide .phasen-grid>div{border-top:2px solid rgba(246,220,159,.45);padding-top:1rem}
+  .slide strong{color:#fff;font-weight:700}
+  .slide a{color:var(--gold-soft);font-weight:700}
+  .slider-dots{display:flex;justify-content:center;gap:.6rem;padding-top:2rem}
+  .slider-dots button{width:11px;height:11px;border-radius:50%;border:0;padding:0;background:rgba(255,255,255,.4);cursor:pointer}
+  .slider-dots button[aria-current="true"]{background:var(--gold-soft)}
+  @media(prefers-reduced-motion:reduce){.slider-track{transition:none}}
 
   /* ---------- Team ---------- */
   .team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.6rem;margin-top:2.2rem}
@@ -303,20 +314,64 @@
   <!-- ======= Lebensphasen ======= -->
   <section class="phasen">
     <div class="wrap">
-      <p class="eyebrow reveal">Für jede Lebensphase</p>
-      <h2 class="reveal">Vom ersten Stift bis zum hundertsten Frühling</h2>
-      <div class="phasen-grid">
-        <div class="reveal">
-          <h3>Kinder &amp; Jugendliche</h3>
-          <p>Wir stärken Konzentration, Motorik und Selbstvertrauen – damit Schule, Freundschaften und Spielen leichter gelingen.</p>
+      <div class="slider reveal" aria-roledescription="carousel" aria-label="Fragen zur Ergotherapie">
+        <div class="slider-track">
+          <article class="slide" aria-roledescription="slide" aria-label="1 von 3">
+            <h2>Was ist Ergotherapie?</h2>
+            <div class="phasen-grid">
+              <div>
+                <h3>Selbstbestimmt im Alltag</h3>
+                <p>Wir begleiten Menschen <strong>jeden Alters</strong> dabei, ihren Alltag so selbstständig wie möglich zu gestalten.</p>
+              </div>
+              <div>
+                <h3>Fähigkeiten stärken</h3>
+                <p>Nach Krankheit oder Verletzung, bei Entwicklungsverzögerungen oder im Alter: Wir <strong>erhalten, was da ist</strong>, holen Verlorenes zurück und finden neue Wege.</p>
+              </div>
+              <div>
+                <h3>Sie im Mittelpunkt</h3>
+                <p>Ihre <strong>Bedürfnisse, Möglichkeiten und Ziele</strong> bestimmen, woran wir gemeinsam arbeiten.</p>
+              </div>
+            </div>
+          </article>
+          <article class="slide" aria-roledescription="slide" aria-label="2 von 3">
+            <h2>Wie erhalte ich Ergotherapie?</h2>
+            <div class="phasen-grid">
+              <div>
+                <h3>Die Verordnung</h3>
+                <p><strong>Haus-, Kinder- oder Fachärzte</strong> verordnen Ergotherapie, wenn sie medizinisch notwendig ist – unter bestimmten Voraussetzungen auch Psychotherapeuten.</p>
+              </div>
+              <div>
+                <h3>Der Weg zu uns</h3>
+                <p>Mit Ihrer <strong>Heilmittelverordnung</strong> melden Sie sich einfach <a href="#kontakt">bei uns in der Praxis</a>.</p>
+              </div>
+              <div>
+                <h3>Der gemeinsame Start</h3>
+                <p>Zusammen besprechen wir <strong>Ihr Anliegen, Ihre Ziele</strong> und die nächsten Schritte Ihrer Behandlung.</p>
+              </div>
+            </div>
+          </article>
+          <article class="slide" aria-roledescription="slide" aria-label="3 von 3">
+            <h2>Wer bezahlt?</h2>
+            <div class="phasen-grid">
+              <div>
+                <h3>Ihre Krankenkasse</h3>
+                <p>Ergotherapie ist eine ärztlich verordnete Leistung. Die Kosten tragen <strong>in der Regel die gesetzlichen und privaten Krankenkassen</strong>.</p>
+              </div>
+              <div>
+                <h3>Gesetzlich versichert</h3>
+                <p>Ab 18 Jahren zahlen Sie <strong>10 % der Kosten plus 10 € je Verordnung</strong> zu, sofern Sie nicht befreit sind. <strong>Kinder und Jugendliche</strong> sind von der Zuzahlung befreit.</p>
+              </div>
+              <div>
+                <h3>Privat versichert</h3>
+                <p>Sie erhalten von uns <strong>eine Rechnung</strong> und reichen sie je nach Tarif bei Ihrer Versicherung zur Erstattung ein.</p>
+              </div>
+            </div>
+          </article>
         </div>
-        <div class="reveal">
-          <h3>Erwachsene</h3>
-          <p>Zurück in Beruf und Alltag: Wir üben genau die Handgriffe und Abläufe, die für Ihr Leben wichtig sind.</p>
-        </div>
-        <div class="reveal">
-          <h3>Seniorinnen &amp; Senioren</h3>
-          <p>Selbstständig zu Hause bleiben, sicher unterwegs sein, geistig aktiv – wir unterstützen dabei, auch mit Hausbesuchen.</p>
+        <div class="slider-dots">
+          <button type="button" aria-label="Was ist Ergotherapie?" aria-current="true"></button>
+          <button type="button" aria-label="Wie erhalte ich Ergotherapie?"></button>
+          <button type="button" aria-label="Wer bezahlt?"></button>
         </div>
       </div>
     </div>
@@ -478,6 +533,24 @@
     for(const e of entries){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }
   },{threshold:.15});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Slider: alle 12 Sekunden weiter, nach dem letzten wieder zum ersten; pausiert bei Maus/Fokus
+  const slider = document.querySelector('.slider');
+  const track = slider.querySelector('.slider-track');
+  const dots = slider.querySelectorAll('.slider-dots button');
+  let current = 0, timer;
+  function show(i){
+    current = i;
+    track.style.transform = `translateX(-${i*100}%)`;
+    dots.forEach((d,n)=>d.setAttribute('aria-current', n===i));
+  }
+  function start(){ clearInterval(timer); timer = setInterval(()=>show((current+1)%dots.length), 12000); }
+  dots.forEach((d,n)=>d.addEventListener('click',()=>{ show(n); start(); }));
+  slider.addEventListener('mouseenter',()=>clearInterval(timer));
+  slider.addEventListener('mouseleave',start);
+  slider.addEventListener('focusin',()=>clearInterval(timer));
+  slider.addEventListener('focusout',start);
+  start();
 </script>
 </body>
 </html>
