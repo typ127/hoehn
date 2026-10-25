@@ -91,13 +91,13 @@
   }
 
   /* ---------- Hero ---------- */
-  .hero{position:relative;overflow:hidden;padding:112px 0 128px;background:
+  .hero{--pb:clamp(88px,14.3vw - 55px,128px);position:relative;overflow:hidden;padding:112px 0 var(--pb);background:
     linear-gradient(rgba(252,249,241,0) 70%,var(--petal)),
     radial-gradient(55% 70% at 88% 28%,rgba(246,220,159,.42),transparent 70%),
     radial-gradient(45% 60% at -5% 105%,rgba(220,229,210,.85),transparent 70%),
     var(--linen)}
   .hero .wrap{position:relative}
-  .hero-text{position:relative;z-index:1;max-width:min(620px,58%)}
+  .hero-text{position:relative;z-index:1;max-width:min(620px,55%)}
   .hero h1{font-size:clamp(2.4rem,5.2vw,3.8rem);margin-bottom:1.2rem}
   .hero h1 em{position:relative;font-style:normal;color:var(--gold-deep);white-space:nowrap}
   /* handgezeichneter Pinselstrich unter „ins eigene Leben.“ */
@@ -109,18 +109,22 @@
   .chip i{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--sage-soft)}
   .chip .ic{width:16px;height:16px}
 
-  /* Aquarell-Blume: wächst an der Unterkante aus dem Abschnitt, Blätter reichen unter den Text */
-  .hero-art{position:absolute;right:max(-50px,calc(8px - (100vw - min(100vw,1100px))/2));bottom:-120px;width:clamp(380px,46vw,580px);pointer-events:none;animation:rise 1.2s ease both}
+  /* Aquarell-Blume: wächst an der Unterkante aus dem Abschnitt, Blätter reichen unter den Text.
+     Breite und unterer Abstand (--pb) schrumpfen gemeinsam, damit die Blüte bei jeder Breite etwa auf Höhe der Überschrift beginnt.
+     Bei schmalen Fenstern wird rechts angeschnitten – dort ist das Bild ohnehin leer. */
+  .hero-art{position:absolute;left:51.5%;bottom:calc(8px - var(--pb));width:clamp(520px,21.4vw + 306px,580px);pointer-events:none;animation:rise 1.2s ease both}
   .hero-art::before{content:"";position:absolute;left:3%;top:-6%;width:70%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,rgba(246,220,159,.6),rgba(246,220,159,0) 68%);z-index:-1}
   .hero-blume{width:100%;height:auto;transform-origin:8% 100%;animation:sway 9s ease-in-out infinite alternate}
-  .hero-falter{position:absolute;left:72.3%;top:0;width:27.7%;height:auto;animation:fadein 1.4s ease .7s both,flutter 6s ease-in-out 2.1s infinite}
-  @media(max-width:860px){
+  /* Schmetterling rückt nach links, sobald die Blume rechts angeschnitten wird */
+  .hero-falter{position:absolute;left:min(72.3%,calc(48.5vw - 24px - 27.7%));top:0;width:27.7%;height:auto;animation:fadein 1.4s ease .7s both,flutter 6s ease-in-out 2.1s infinite}
+  @media(max-width:999px){
     .hero{padding:32px 0 72px}
     .hero .wrap{display:flex;flex-direction:column}
     .hero-text{max-width:none}
-    .hero-art{position:relative;order:-1;right:auto;bottom:auto;width:min(86vw,380px);margin:0 -12px -150px auto;aspect-ratio:1100/1050;overflow:hidden;-webkit-mask-image:linear-gradient(#000 45%,rgba(0,0,0,.35) 75%,transparent 100%);mask-image:linear-gradient(#000 45%,rgba(0,0,0,.35) 75%,transparent 100%)}
+    /* Blume wächst ab ca. 576px mit der Breite mit (wie auf dem Handy, nur größer) und rückt dabei Richtung Mitte */
+    .hero-art{--fw:max(min(86vw,380px),min(66vw,620px));position:relative;order:-1;left:auto;bottom:auto;width:var(--fw);margin:0 max(-12px,calc((100% - var(--fw))/2 - 50px)) min(-150px,calc(var(--fw) * -.395)) auto;aspect-ratio:1100/1050;overflow:hidden;-webkit-mask-image:linear-gradient(#000 45%,rgba(0,0,0,.35) 75%,transparent 100%);mask-image:linear-gradient(#000 45%,rgba(0,0,0,.35) 75%,transparent 100%)}
     .hero-art::before{top:0}
-    .hero-falter{top:14px}   /* Platz nach oben, damit der Flügel beim Schweben nicht abgeschnitten wird */
+    .hero-falter{top:14px;left:72.3%}   /* Platz nach oben, damit der Flügel beim Schweben nicht abgeschnitten wird */
   }
 
   @keyframes sway{from{transform:rotate(-1.2deg)}to{transform:rotate(1.2deg)}}
