@@ -41,8 +41,8 @@
   .wrap{max-width:1140px;margin:0 auto;padding:0 24px}
   h1,h2,h3{font-family:var(--display);font-weight:400;line-height:1.18}
   h2{font-size:clamp(1.8rem,3.6vw,2.6rem);margin-bottom:.5rem}
-  .eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.76rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--moss-soft);background:#fff;border:1px solid var(--line);border-radius:999px;padding:.38rem .95rem .38rem .45rem;margin-bottom:1rem}
-  .eyebrow svg{width:20px;height:20px}
+  .eyebrow{display:inline-flex;align-items:center;gap:.5rem;font-size:.76rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--moss-soft);background:#fff;border:1px solid var(--line);border-radius:999px;padding:.38rem .95rem .38rem .6rem;margin-bottom:1rem}
+  .eyebrow svg{width:22px;height:22px}
   section{padding:96px 0}
   :focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
   .ic{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
@@ -288,31 +288,24 @@
 </head>
 <body>
 
-<!-- ======= Wiederverwendbare Blütenmarke ======= -->
+<!-- ======= Wiederverwendbare Zweigmarke ======= -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <radialGradient id="fcenter" cx="50%" cy="42%" r="65%">
-      <stop offset="0%" stop-color="#F2B95C"/><stop offset="100%" stop-color="#DE9A33"/>
-    </radialGradient>
-    <g id="flower">
-      <g id="fp"><ellipse cx="0" cy="-33" rx="10.5" ry="20" fill="#FBF1DA" stroke="#E8D9B6" stroke-width="1"/></g>
-      <use href="#fp" transform="rotate(30)"/><use href="#fp" transform="rotate(60)"/>
-      <use href="#fp" transform="rotate(90)"/><use href="#fp" transform="rotate(120)"/>
-      <use href="#fp" transform="rotate(150)"/><use href="#fp" transform="rotate(180)"/>
-      <use href="#fp" transform="rotate(210)"/><use href="#fp" transform="rotate(240)"/>
-      <use href="#fp" transform="rotate(270)"/><use href="#fp" transform="rotate(300)"/>
-      <use href="#fp" transform="rotate(330)"/>
-      <g transform="rotate(15)"><ellipse cx="0" cy="-30" rx="9" ry="17" fill="#F6D998"/></g>
-      <g transform="rotate(75)"><ellipse cx="0" cy="-30" rx="9" ry="17" fill="#F6D998"/></g>
-      <g transform="rotate(135)"><ellipse cx="0" cy="-30" rx="9" ry="17" fill="#F6D998"/></g>
-      <g transform="rotate(195)"><ellipse cx="0" cy="-30" rx="9" ry="17" fill="#F6D998"/></g>
-      <g transform="rotate(255)"><ellipse cx="0" cy="-30" rx="9" ry="17" fill="#F6D998"/></g>
-      <g transform="rotate(315)"><ellipse cx="0" cy="-30" rx="9" ry="17" fill="#F6D998"/></g>
-      <circle r="15.5" fill="url(#fcenter)"/>
-      <g fill="#C9851F" opacity=".55">
-        <circle cx="0" cy="-6" r="1.6"/><circle cx="5.5" cy="-2" r="1.6"/><circle cx="3.5" cy="5" r="1.6"/>
-        <circle cx="-3.5" cy="5" r="1.6"/><circle cx="-5.5" cy="-2" r="1.6"/><circle cx="0" cy=".5" r="1.6"/>
+    <!-- Zweig mit Punkt, angelehnt an das Logo -->
+    <path id="sprig-leaf" d="M0 0 C 4 -13 16 -22 31 -24 C 27 -10 15 -1 0 0 Z"/>
+    <g id="sprig">
+      <g transform="rotate(28) translate(-6 4)">
+        <path d="M0 44 C 1 20 1 -10 0 -34" stroke="#6E7E68" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+        <g fill="#6E7E68">
+          <use href="#sprig-leaf" transform="translate(0 24)"/>
+          <use href="#sprig-leaf" transform="translate(0 24) scale(-1 1)"/>
+          <use href="#sprig-leaf" transform="translate(0 2) scale(.9)"/>
+          <use href="#sprig-leaf" transform="translate(0 2) scale(-.9 .9)"/>
+          <path d="M0 -26 C -8 -36 -8 -48 0 -56 C 8 -48 8 -36 0 -26 Z"/>
+        </g>
       </g>
+      <circle cx="30" cy="32" r="8" fill="#E39B55"/>
+    </g>
     </g>
   
   <!-- Kamille: weiße Blätter, gewölbte gelbe Mitte -->
@@ -424,7 +417,7 @@
   <section class="hero">
     <div class="wrap">
       <div class="hero-text">
-        <p class="eyebrow"><svg viewBox="-56 -56 112 112"><use href="#flower"/></svg> Ergotherapie in Fürth</p>
+        <p class="eyebrow"><svg viewBox="-56 -56 112 112"><use href="#sprig"/></svg> Ergotherapie in Fürth</p>
         <h1>Schritt für Schritt zurück <em>ins eigene Leben.</em></h1>
         <p class="lead">Ob Kind, Erwachsener oder Senior – wir begleiten Sie dabei, Alltag, Beruf und Spiel wieder selbstständig und mit Freude zu meistern. Herzlich, fundiert und mitten in Fürth.</p>
         <div class="hero-actions">
@@ -449,7 +442,7 @@
     <div class="wrap">
       <div class="section-head">
         <div>
-          <p class="eyebrow reveal"><svg viewBox="-56 -56 112 112"><use href="#flower"/></svg> Unsere Leistungen</p>
+          <p class="eyebrow reveal"><svg viewBox="-56 -56 112 112"><use href="#sprig"/></svg> Unsere Leistungen</p>
           <h2 class="reveal">Therapie, die zu Ihrem Alltag passt</h2>
         </div>
         <p class="reveal" style="--d:1">Jeder Mensch bringt eine eigene Geschichte mit. Nach einer ausführlichen Befundung entwickeln wir gemeinsam Ziele – und einen Weg, der zu Ihnen passt.</p>
@@ -484,7 +477,7 @@
   <section class="phasen" id="ergotherapie">
     <svg class="wave top" viewBox="0 0 1440 56" preserveAspectRatio="none" aria-hidden="true"><path d="M0 34 C 220 6 460 4 720 26 C 980 48 1220 52 1440 22 V56 H0 Z"/></svg>
     <div class="wrap">
-      <p class="eyebrow reveal"><svg viewBox="-56 -56 112 112"><use href="#flower"/></svg> Gut zu wissen</p>
+      <p class="eyebrow reveal"><svg viewBox="-56 -56 112 112"><use href="#sprig"/></svg> Gut zu wissen</p>
       <h2 class="reveal">Ergotherapie – kurz erklärt</h2>
       <div class="slider reveal" aria-roledescription="carousel" aria-label="Fragen zur Ergotherapie">
         <div class="tabbar">
@@ -565,7 +558,7 @@
     <div class="wrap">
       <div class="section-head">
         <div>
-          <p class="eyebrow reveal"><svg viewBox="-56 -56 112 112"><use href="#flower"/></svg> Unser Team</p>
+          <p class="eyebrow reveal"><svg viewBox="-56 -56 112 112"><use href="#sprig"/></svg> Unser Team</p>
           <h2 class="reveal">Menschen, die gern zuhören</h2>
         </div>
         <p class="reveal" style="--d:1">Wir sind ein kleines, herzliches Team mit unterschiedlichen Schwerpunkten – und einem gemeinsamen Ziel: dass Sie sich bei uns gut aufgehoben fühlen.</p>
@@ -574,28 +567,28 @@
       <div class="team-grid">
         <div class="member reveal" style="--d:0">
           <div class="photo">
-            <svg viewBox="0 0 200 200"><rect width="200" height="200" fill="#DCE5D2"/><circle cx="100" cy="86" r="40" fill="#E8B98F"/><path d="M55 90 Q52 38 100 38 Q148 38 145 90 Q146 60 100 56 Q54 60 55 90Z" fill="#8C5A3A"/><path d="M40 200 Q42 138 100 138 Q158 138 160 200Z" fill="#76845F"/><g transform="translate(160,40) scale(.28)"><use href="#flower"/></g></svg>
+            <svg viewBox="0 0 200 200"><rect width="200" height="200" fill="#DCE5D2"/><circle cx="100" cy="86" r="40" fill="#E8B98F"/><path d="M55 90 Q52 38 100 38 Q148 38 145 90 Q146 60 100 56 Q54 60 55 90Z" fill="#8C5A3A"/><path d="M40 200 Q42 138 100 138 Q158 138 160 200Z" fill="#76845F"/><g transform="translate(160,40) scale(.28)"><use href="#sprig"/></g></svg>
           </div>
           <h3>Christiane Höhn</h3>
           <span>Inhaberin · Handtherapie &amp; Neurologie</span>
         </div>
         <div class="member reveal" style="--d:1">
           <div class="photo">
-            <svg viewBox="0 0 200 200"><rect width="200" height="200" fill="#F6DC9F"/><circle cx="100" cy="86" r="40" fill="#F0C9A0"/><path d="M58 80 Q58 36 100 36 Q142 36 142 80 L142 116 Q132 96 100 96 Q68 96 58 116Z" fill="#3F3A33"/><path d="M40 200 Q42 138 100 138 Q158 138 160 200Z" fill="#8FA882"/><g transform="translate(40,42) scale(.28)"><use href="#flower"/></g></svg>
+            <svg viewBox="0 0 200 200"><rect width="200" height="200" fill="#F6DC9F"/><circle cx="100" cy="86" r="40" fill="#F0C9A0"/><path d="M58 80 Q58 36 100 36 Q142 36 142 80 L142 116 Q132 96 100 96 Q68 96 58 116Z" fill="#3F3A33"/><path d="M40 200 Q42 138 100 138 Q158 138 160 200Z" fill="#8FA882"/><g transform="translate(40,42) scale(.28)"><use href="#sprig"/></g></svg>
           </div>
           <h3>Miriam Lang</h3>
           <span>Ergotherapeutin · Pädiatrie</span>
         </div>
         <div class="member reveal" style="--d:2">
           <div class="photo">
-            <svg viewBox="0 0 200 200"><rect width="200" height="200" fill="#DCE5D2"/><circle cx="100" cy="86" r="40" fill="#D9A276"/><path d="M62 70 Q66 38 100 38 Q134 38 138 70 Q120 56 100 56 Q80 56 62 70Z" fill="#2E2A26"/><path d="M40 200 Q42 138 100 138 Q158 138 160 200Z" fill="#E0A23C"/><g transform="translate(160,42) scale(.28)"><use href="#flower"/></g></svg>
+            <svg viewBox="0 0 200 200"><rect width="200" height="200" fill="#DCE5D2"/><circle cx="100" cy="86" r="40" fill="#D9A276"/><path d="M62 70 Q66 38 100 38 Q134 38 138 70 Q120 56 100 56 Q80 56 62 70Z" fill="#2E2A26"/><path d="M40 200 Q42 138 100 138 Q158 138 160 200Z" fill="#E0A23C"/><g transform="translate(160,42) scale(.28)"><use href="#sprig"/></g></svg>
           </div>
           <h3>Jonas Berger</h3>
           <span>Ergotherapeut · Geriatrie &amp; Hausbesuche</span>
         </div>
         <div class="member reveal" style="--d:3">
           <div class="photo">
-            <svg viewBox="0 0 200 200"><rect width="200" height="200" fill="#F6DC9F"/><circle cx="100" cy="86" r="40" fill="#E8B98F"/><path d="M56 96 Q50 34 100 34 Q150 34 144 96 L138 126 Q140 80 100 76 Q60 80 62 126Z" fill="#A8652F"/><path d="M40 200 Q42 138 100 138 Q158 138 160 200Z" fill="#76845F"/><g transform="translate(40,40) scale(.28)"><use href="#flower"/></g></svg>
+            <svg viewBox="0 0 200 200"><rect width="200" height="200" fill="#F6DC9F"/><circle cx="100" cy="86" r="40" fill="#E8B98F"/><path d="M56 96 Q50 34 100 34 Q150 34 144 96 L138 126 Q140 80 100 76 Q60 80 62 126Z" fill="#A8652F"/><path d="M40 200 Q42 138 100 138 Q158 138 160 200Z" fill="#76845F"/><g transform="translate(40,40) scale(.28)"><use href="#sprig"/></g></svg>
           </div>
           <h3>Selma Yilmaz</h3>
           <span>Praxisorganisation &amp; Empfang</span>
@@ -609,7 +602,7 @@
     <div class="wrap">
       <div class="section-head">
         <div>
-          <p class="eyebrow reveal"><svg viewBox="-56 -56 112 112"><use href="#flower"/></svg> Unsere Räumlichkeiten</p>
+          <p class="eyebrow reveal"><svg viewBox="-56 -56 112 112"><use href="#sprig"/></svg> Unsere Räumlichkeiten</p>
           <h2 class="reveal">Helle Räume zum Ankommen</h2>
         </div>
         <p class="reveal" style="--d:1">Viel Tageslicht, warme Holztöne und Platz zum Bewegen – unsere Praxisräume sollen sich nicht nach Behandlung anfühlen, sondern nach Willkommensein.</p>
@@ -667,7 +660,7 @@
               <ellipse cx="226" cy="118" rx="22" ry="9" fill="#A9BE9B"/>
               <rect x="280" y="106" width="34" height="24" rx="5" fill="#F6D998" stroke="#E0A23C" stroke-width="3"/>
               <rect x="160" y="40" width="120" height="50" rx="8" fill="#FBF7EA" stroke="#D9CBA8" stroke-width="3"/>
-              <g transform="translate(220,65) scale(.3)"><use href="#flower"/></g>
+              <g transform="translate(220,65) scale(.3)"><use href="#sprig"/></g>
             </svg>
           </div>
           <figcaption class="cap"><h3>Handtherapie-Studio</h3><p>Ruhiger Arbeitsplatz für feinmotorisches Training und Schienenanpassung.</p></figcaption>
@@ -680,7 +673,7 @@
   <section class="kontakt" id="kontakt">
     <div class="wrap">
       <div>
-        <p class="eyebrow reveal"><svg viewBox="-56 -56 112 112"><use href="#flower"/></svg> Kontakt &amp; Anfahrt</p>
+        <p class="eyebrow reveal"><svg viewBox="-56 -56 112 112"><use href="#sprig"/></svg> Kontakt &amp; Anfahrt</p>
         <h2 class="reveal">Wir freuen uns auf Sie</h2>
         <p class="reveal">Rufen Sie an, schreiben Sie uns oder kommen Sie einfach vorbei – wir nehmen uns Zeit für Ihre Fragen.</p>
         <div class="contact-list">
@@ -702,7 +695,7 @@
         <p class="note reveal"><svg class="ic" aria-hidden="true"><use href="#i-info"/></svg><span>Sie haben eine ärztliche Verordnung (Rezept)? Bringen Sie diese einfach zum ersten Termin mit – alles Weitere klären wir gemeinsam.</span></p>
       </div>
       <div class="hours-card reveal" style="--d:1">
-        <svg class="deco" viewBox="-56 -56 112 112" aria-hidden="true"><use href="#flower"/></svg>
+        <svg class="deco" viewBox="-56 -56 112 112" aria-hidden="true"><use href="#sprig"/></svg>
         <h3>Öffnungszeiten</h3>
         <p class="status" hidden></p>
         <table class="hours">
@@ -725,7 +718,7 @@
   <div class="wrap">
     <div class="foot-grid">
       <div class="foot-brand">
-        <svg width="44" height="44" viewBox="-56 -56 112 112" aria-hidden="true"><use href="#flower"/></svg>
+        <svg width="44" height="44" viewBox="-56 -56 112 112" aria-hidden="true"><use href="#sprig"/></svg>
         <div><strong>Christiane Höhn</strong>Praxis für Ergotherapie · Fürth</div>
       </div>
       <div class="foot-cols">
