@@ -93,16 +93,29 @@
   .phasen-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:2rem;margin-top:2rem}
   .phasen-grid h3{font-size:1.2rem;margin-bottom:.4rem;color:var(--gold-soft)}
   .phasen-grid p{font-size:.95rem}
-  .slider{overflow:hidden}
+  .slider{overflow:hidden;touch-action:pan-y}
   .slider-track{display:flex;transition:transform .8s ease}
   .slide{flex:0 0 100%}
   .slide .phasen-grid{margin-top:1.2rem}
   .slide .phasen-grid>div{border-top:2px solid rgba(246,220,159,.45);padding-top:1rem}
   .slide strong{color:#fff;font-weight:700}
   .slide a{color:var(--gold-soft);font-weight:700}
-  .slider-dots{display:flex;justify-content:center;gap:.6rem;padding-top:2rem}
-  .slider-dots button{width:11px;height:11px;border-radius:50%;border:0;padding:0;background:rgba(255,255,255,.4);cursor:pointer}
-  .slider-dots button[aria-current="true"]{background:var(--gold-soft)}
+  .slider-nav{display:flex;justify-content:center;align-items:center;gap:.8rem;padding-top:2rem}
+  .slider-dots{display:flex}
+  .slider-dots button{position:relative;width:28px;height:36px;border:0;padding:0;background:none;cursor:pointer;transition:width .3s}
+  .slider-dots button::before,.slider-dots button::after{content:"";position:absolute;left:9px;top:13px;height:10px;border-radius:5px;background:rgba(255,255,255,.4)}
+  .slider-dots button::before{right:9px}
+  .slider-dots button::after{width:0;background:var(--gold-soft)}
+  .slider-dots button[aria-current="true"]{width:56px}
+  .slider-dots button[aria-current="true"]::after{animation:slideprogress 12s linear forwards}
+  .slider.paused .slider-dots button::after{animation-play-state:paused}
+  .slider.stopped .slider-dots button[aria-current="true"]::after{animation:none;width:38px}
+  @keyframes slideprogress{to{width:38px}}
+  .slider-toggle{width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,.5);background:none;color:#fff;display:grid;place-items:center;cursor:pointer}
+  .slider-toggle:hover{border-color:var(--gold-soft)}
+  .slider-toggle svg{width:14px;height:14px;fill:currentColor}
+  .slider .i-play,.slider.stopped .i-pause{display:none}
+  .slider.stopped .i-play{display:inline}
   @media(prefers-reduced-motion:reduce){.slider-track{transition:none}}
 
   /* ---------- Team ---------- */
@@ -359,7 +372,7 @@
               </div>
               <div>
                 <h3>Gesetzlich versichert</h3>
-                <p>Ab 18 Jahren zahlen Sie <strong>10 % der Kosten plus 10 € je Verordnung</strong> zu, sofern Sie nicht befreit sind. <strong>Kinder und Jugendliche</strong> sind von der Zuzahlung befreit.</p>
+                <p>Ab 18 Jahren zahlen Sie <strong>10&nbsp;% der Kosten plus 10&nbsp;€ je Verordnung</strong> zu, sofern Sie nicht befreit sind. <strong>Kinder und Jugendliche</strong> sind von der Zuzahlung befreit.</p>
               </div>
               <div>
                 <h3>Privat versichert</h3>
@@ -368,10 +381,15 @@
             </div>
           </article>
         </div>
-        <div class="slider-dots">
-          <button type="button" aria-label="Was ist Ergotherapie?" aria-current="true"></button>
-          <button type="button" aria-label="Wie erhalte ich Ergotherapie?"></button>
-          <button type="button" aria-label="Wer bezahlt?"></button>
+        <div class="slider-nav">
+          <div class="slider-dots">
+            <button type="button" aria-label="Was ist Ergotherapie?" aria-current="true"></button>
+            <button type="button" aria-label="Wie erhalte ich Ergotherapie?"></button>
+            <button type="button" aria-label="Wer bezahlt?"></button>
+          </div>
+          <button type="button" class="slider-toggle" aria-label="Slider anhalten">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path class="i-pause" d="M6 4h4v16H6zM14 4h4v16h-4z"/><path class="i-play" d="M7 4v16l13-8z"/></svg>
+          </button>
         </div>
       </div>
     </div>
@@ -534,23 +552,42 @@
   },{threshold:.15});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-  // Slider: alle 12 Sekunden weiter, nach dem letzten wieder zum ersten; pausiert bei Maus/Fokus
+  // Slider: Der Fortschrittsbalken im aktiven Punkt ist der Taktgeber (12 s, siehe CSS).
+  // Pausiert bei Maus-Hover und außerhalb des Bildschirms; Antippen, Wischen oder ein Klick auf einen Punkt stoppt ihn ganz.
   const slider = document.querySelector('.slider');
   const track = slider.querySelector('.slider-track');
   const dots = slider.querySelectorAll('.slider-dots button');
-  let current = 0, timer;
-  function show(i){
-    current = i;
-    track.style.transform = `translateX(-${i*100}%)`;
-    dots.forEach((d,n)=>d.setAttribute('aria-current', n===i));
+  const toggle = slider.querySelector('.slider-toggle');
+  let current = 0, hovering = false, visible = false;
+  let stopped = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function update(){
+    slider.classList.toggle('stopped', stopped);
+    slider.classList.toggle('paused', stopped || hovering || !visible);
+    toggle.setAttribute('aria-label', stopped ? 'Slider abspielen' : 'Slider anhalten');
   }
-  function start(){ clearInterval(timer); timer = setInterval(()=>show((current+1)%dots.length), 12000); }
-  dots.forEach((d,n)=>d.addEventListener('click',()=>{ show(n); start(); }));
-  slider.addEventListener('mouseenter',()=>clearInterval(timer));
-  slider.addEventListener('mouseleave',start);
-  slider.addEventListener('focusin',()=>clearInterval(timer));
-  slider.addEventListener('focusout',start);
-  start();
+  function show(i){
+    current = (i + dots.length) % dots.length;
+    track.style.transform = `translateX(-${current*100}%)`;
+    dots.forEach((d,n)=>d.setAttribute('aria-current', n===current));
+  }
+  function stop(){ stopped = true; update(); }
+  dots.forEach((d,n)=>{
+    d.addEventListener('click',()=>{ show(n); stop(); });
+    d.addEventListener('animationend',()=>{ if(n===current) show(current+1); });
+  });
+  toggle.addEventListener('click',()=>{ stopped = !stopped; update(); });
+  slider.addEventListener('pointerenter',e=>{ if(e.pointerType==='mouse'){ hovering = true; update(); } });
+  slider.addEventListener('pointerleave',e=>{ if(e.pointerType==='mouse'){ hovering = false; update(); } });
+  let sx = 0, sy = 0;
+  slider.addEventListener('touchstart',e=>{ sx = e.touches[0].clientX; sy = e.touches[0].clientY; },{passive:true});
+  slider.addEventListener('touchend',e=>{
+    if(e.target.closest('button')) return;
+    const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+    if(Math.abs(dx) > 40 && Math.abs(dx) > Math.abs(dy)){ show(current + (dx < 0 ? 1 : -1)); stop(); }
+    else if(Math.abs(dx) < 10 && Math.abs(dy) < 10) stop();   // Antippen; senkrechtes Scrollen zählt nicht
+  });
+  new IntersectionObserver(([e])=>{ visible = e.isIntersecting; update(); },{threshold:.3}).observe(slider);
+  update();
 </script>
 </body>
 </html>
