@@ -76,8 +76,9 @@
     .hero{padding:32px 0 72px}
     .hero .wrap{display:flex;flex-direction:column}
     .hero-text{max-width:none}
-    .hero-art{position:relative;order:-1;right:auto;bottom:auto;width:min(86vw,380px);margin:0 -12px -64px auto;aspect-ratio:1100/740;overflow:hidden;-webkit-mask-image:linear-gradient(#000 40%,transparent 82%);mask-image:linear-gradient(#000 40%,transparent 82%)}
+    .hero-art{position:relative;order:-1;right:auto;bottom:auto;width:min(86vw,380px);margin:0 -12px -150px auto;aspect-ratio:1100/1050;overflow:hidden;-webkit-mask-image:linear-gradient(#000 45%,rgba(0,0,0,.35) 75%,transparent 100%);mask-image:linear-gradient(#000 45%,rgba(0,0,0,.35) 75%,transparent 100%)}
     .hero-art::before{top:0}
+    .hero-falter{top:14px}   /* Platz nach oben, damit der Flügel beim Schweben nicht abgeschnitten wird */
   }
 
   @keyframes sway{from{transform:rotate(-1.2deg)}to{transform:rotate(1.2deg)}}
